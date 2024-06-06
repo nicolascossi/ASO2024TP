@@ -8,24 +8,22 @@ int turno = 0;   // Esto lo agregue yo
 
 void *comer_hamburguesa(void *tid)
 {
-	while (1 == 1)
+		
+       while (1 == 1)
 	{ 
 		
-        while(turno!=(int)tid) {    // Esto lo agregue yo
-            // INICIO DE LA ZONA CRÍTICA
-            if (cantidad_restante_hamburguesas > 0)
-            {
-                printf("Hola! soy el hilo(comensal) %d , me voy a comer una hamburguesa ! ya que todavia queda/n %d \n", (int) tid, cantidad_restante_hamburguesas);
-                cantidad_restante_hamburguesas--; // me como una hamburguesa
-            }
-            else
-            {
-                printf("SE TERMINARON LAS HAMBURGUESAS :( \n");
+    // INICIO DE LA ZONA CRÍTICA
+		if (cantidad_restante_hamburguesas > 0)
+		{
+			printf("Hola! soy el hilo(comensal) %d , me voy a comer una hamburguesa ! ya que todavia queda/n %d \n", (int) tid, cantidad_restante_hamburguesas);
+				cantidad_restante_hamburguesas--; // ME COMI UNA HAMBURGESA
+		}
+		else
+		{
+			printf("SE TERMINARON LAS HAMBURGUESAS :( \n");
 
-                pthread_exit(NULL); // forzar terminacion del hilo
-            }   
-            turno = (turno + 1)% NUMBER_OF_THREADS;   // Agregado al codigo por mi
-            // SALIDA DE LA ZONA CRÍTICA
+			pthread_exit(NULL); // FUERZO LA TERMINACION DEL HILO
+		}
         }
 	}
 }
@@ -48,7 +46,7 @@ int main(int argc, char *argv[])
 	for (i = 0; i < NUMBER_OF_THREADS; i++)
 	{
 		void *retval;
-		ret = pthread_join(threads[i], &retval); // espero por la terminacion de los hilos que cree
+			ret = pthread_join(threads[i], &retval); // ESPERO QUE TEMRINANEN LOS HILOS
 	}
-	pthread_exit(NULL); // como los hilos que cree ya terminaron de ejecutarse, termino yo tambien.
+	pthread_exit(NULL); // TERMINAN LOS HILOS Y YO TAMBIEN
 }
