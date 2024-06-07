@@ -9,24 +9,27 @@ int cantidad_restante_hamburguesas = CANTIDAD_INICIAL_HAMBURGUESAS;
 void *comer_hamburguesa(void *tid)
 {
 	while (1 == 1)
+		
 	{ 
 		
-    // INICIO DE LA ZONA CRÍTICA
+    // INICIA LA ZONA CRITICA
 		if (cantidad_restante_hamburguesas > 0)
+			
 		{
 			printf("Hola! soy el hilo(comensal) %d , me voy a comer una hamburguesa ! ya que todavia queda/n %d \n", (int) tid, cantidad_restante_hamburguesas);
-			cantidad_restante_hamburguesas--; // me como una hamburguesa
+			cantidad_restante_hamburguesas--; // ACA ME COMO UNA HAMBRUGESA
 		}
 		else
 		{
 			printf("SE TERMINARON LAS HAMBURGUESAS :( \n");
 
-			pthread_exit(NULL); // forzar terminacion del hilo
+			pthread_exit(NULL); // SE FUERZA LA CONTINUACION DEL HILO
 		}
-    // SALIDA DE LA ZONA CRÍTICA   
+    // TERMINA LA ZONA CRIICA 
 
 	}
 }
+
 
 int main(int argc, char *argv[])
 {
@@ -45,8 +48,10 @@ int main(int argc, char *argv[])
 
 	for (i = 0; i < NUMBER_OF_THREADS; i++)
 	{
+		
 		void *retval;
-		ret = pthread_join(threads[i], &retval); // espero por la terminacion de los hilos que cree
+		ret = pthread_join(threads[i], &retval); // eESPERO QUE TERMINE LOS HILOS
+		
 	}
-	pthread_exit(NULL); // como los hilos que cree ya terminaron de ejecutarse, termino yo tambien.
+	pthread_exit(NULL); // TERMINARON LOS HILOS Y ACA TAMBIEN
 }
